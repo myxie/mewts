@@ -1,7 +1,10 @@
 #!/bin/bash 
 
 file="mewts.txt"
-file_date=$(date -r "$file" +%F)
+if [ -f "$file" ] 
+then
+    file_date=$(date -r "$file" +%F)
+fi
 date_header="[$(date +%F)]=========================================================="
 if [ -f "$file" ]
 then
