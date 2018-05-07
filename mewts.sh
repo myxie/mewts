@@ -1,6 +1,13 @@
 #!/bin/bash 
-
+curr_path=$PWD
+echo $path
+user_dir='/home/croutons/'
+dropbox_dir='/home/croutons/Dropbox/mewts'
+link_dir="${curr_path//$user_dir/}";
+link_file_name="${link_dir//'/'/'-'}.txt"
+dropbox_link="$dropbox_dir/$link_file_name"
 file="mewts.txt"
+
 if [ -f "$file" ] 
 then
     file_date=$(date -r "$file" +%F)
@@ -24,4 +31,10 @@ else
         esac
     done
 fi
+
+echo $dropbox_link
+logical_file="${curr_path}/mewts.txt"
+echo $logical_file
+ln -s $logical_file $dropbox_link
+
 
