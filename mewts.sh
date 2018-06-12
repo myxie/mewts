@@ -35,6 +35,7 @@ fi
 echo $dropbox_link
 logical_file="${curr_path}/mewts.txt"
 echo $logical_file
-ln -s $logical_file $dropbox_link
-
-
+if [ ! -f $logical_file ] 
+then 
+    ln -s $logical_file $dropbox_link
+fi
