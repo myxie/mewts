@@ -2,6 +2,8 @@
 month=`date +%B`
 year=`date +%Y`
 
+cd $JOURNAL_DIR
+
 if [ -d "$year" ]
 then
 	echo $year
@@ -16,9 +18,10 @@ else
 	mkdir $year/$month
 fi
 
-final_doc='doc.tex'
+final_doc='journal.tex'
 rm $final_doc
 
+section_header=`date '+%A %d %B, %Y'`
 full_date=`date +%Y-%m-%d`
 journal_entry_file="$year/$month/$full_date.tex" 
 if [ -f "$journal_entry_file" ]
@@ -28,7 +31,10 @@ then
 	subl $journal_entry_file;
 else
 	echo "file does not exist";
-	echo "\documentclass[../../$final_doc]{subfiles}" >> $journal_entry_file;
+	echo "\documentclass[../../$final_doc]{subfiles}
+
+
+	\section{$section_header}" >> $journal_entry_file;
 	subl $journal_entry_file;
 fi
 
@@ -71,10 +77,10 @@ echo "\documentclass[a4paper,11pt]{article}
 \titleformat{\section}{\normalfont\fontsize{11}{11}\bfseries}{\thesection}{0.5em}{}
 " >> "$final_doc"
 
-
 find . -mindepth 2 -name "*.tex" | sort -nr | while read i; do
 	filename="${i//.\//}"; 
-	echo "\subfile{$filename}">>"$final_doc"
+	echo "\subfile{$filename}" >>"$final_doc"
+
 done
 
 echo "\end{document}">>"$final_doc"
