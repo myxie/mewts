@@ -1,5 +1,5 @@
 #!/bin/bash 
-month=`date +%B`
+month=`date +%m`
 year=`date +%Y`
 
 cd $JOURNAL_DIR
